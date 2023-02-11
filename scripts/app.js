@@ -98,13 +98,8 @@ class manCharacter {
         this.texture_count = 0;
         this.isMoving = false
         this.manTexture.push(PIXI.Texture.from('../nobg/man_stand.png'));
-        this.manTexture.push(PIXI.Texture.from('../no/1.png'));
-        this.manTexture.push(PIXI.Texture.from('../no/2.png'));
-        this.manTexture.push(PIXI.Texture.from('../no/3.png'));
-        this.manTexture.push(PIXI.Texture.from('../no/4.png'));
-        this.manTexture.push(PIXI.Texture.from('../no/5.png'));
-        this.manTexture.push(PIXI.Texture.from('../no/6.png'));
-        this.manTexture.push(PIXI.Texture.from('../no/7.png'));
+        for i in range(7):
+            this.manTexture.push(PIXI.Texture.from(f'../no/{i + 1}.png'));
         this.texture_count = this.manTexture.length;
         this.manSprite = new PIXI.Sprite(this.manTexture[0]);
         this.sprite = this.manSprite;
