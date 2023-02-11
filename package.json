@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "pixi.js": "^7.0.5"
+  },
+  "dependencies": {
+    "@types/pixi.js": "^5.0.0"
+  }
+}

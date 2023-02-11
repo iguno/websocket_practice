@@ -1,0 +1,25 @@
+PIXI.Application 생성 -> document.body.appendChild(app.view)
+
+이후로는 app.stage.addChild 로 추가 Sprite 나 Container 등등 가능
+
+
+container 는 group같은 느낌
+
+bunny.x = app.screen.width / 2; -> 중앙에놓고싶을때
+
+dude.anchor.set(0.5); -> 앵커중앙설정
+
+Math.random() -> 딱봐도 0-1사이 난수
+
+dude.direction = Math.random() * Math.PI * 2; --> 라디안 각도
+
+const texture = PIXI.Texture.from('examples/assets/flowerTop.png'); ->> 텍스쳐를 저장
+const character = new PIXI.Sprite(texture);                                   ->> 텍스쳐를 스프라이트로
+character.texture = isFlower ? texture : secondTexture;  ->> 스프라이트.texture = 텍스쳐 로 텍스쳐를 바꿀수있음
+
+const explosion = new PIXI.AnimatedSprite(explosionTextures);  애니메이티드 스프라이트는 뭐노
+
+
+
+
+
