@@ -1,0 +1,52 @@
+async def handler(websocket):
+    while True:
+        try:
+            message = await websocket.recv()
+        except websockets.ConnectionClosedOK:
+            break
+        print(message)
+
+연결끊어질떄오류잡기
+
+async def handler(websocket):
+    async for message in websocket:
+        print(message)
+
+근데이렇게해도됨
+
+async for message in websocket:
+
+이게 계속 메세지 받는거임 이거 그냥 웹소켓이 닫혀도 반복문 바로 끝나는듯
+
+
+
+connect4 3인버전 app.py 설명
+
+main 실행 
+웹소켓에 새로 연결되면
+handler 함수로 그 웹소켓을 보냄
+handler 는 메시지 타입이 init인지 확인, join watch 구별해서 1p,23p구별
+1p는 start 23p는 join 실행함
+
+start는 게임 새로 생성, connected 에 웹소켓 배열 추가 join, watch키 만들고
+
+이벤트 init 해서 조인키 와치키 클라이언트로 보내줌
+
+그리고 play 함수에 1p관련키 넣고 실행 (start 함수는 await 으로 기다림)
+
+1p웹소켓에서 이후로 계속 데이터 받아서 게임 진행
+
+게임 누가 이기면 클라이언트에서 웹소켓을 닫음 -> 반복문 끝남
+await 으로 기다리고 있던 start 함수 다시 실행되면서 
+try finally 로 join, watch키 없앤다 -> 방 폭파되는거임
+
+
+
+
+
+
+
+
+
+
+

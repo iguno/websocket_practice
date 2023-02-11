@@ -1,0 +1,157 @@
+클라이언트 입력 -> 서버 -> 다른 모든 클라이언트
+
+서버 - server.py
+
+connected : 웹소켓들 저장
+
+서버 -> 클라이언트
+map = {
+    "type": "map",
+    "time": server_time,
+    "player": {
+        id: [x, y ,vx ,vy],
+    },
+}
+
+그냥 서버가 갖고있음
+player_color = {
+    id: [r, g, b],
+}
+
+클라이언트 -> 서버
+{
+    "id": id,
+    "time": client_time,
+    "input": [vx, vy],
+}
+
+
+
+
+
+클라이언트 - app.js
+
+players {
+    "id": manCharacter
+
+
+}
+
+
+
+클라이언트에서 서버에 접속, init 이벤트 전송
+
+서버 : init 이벤트 받으면 그 websocket 을 connected 에 추가, len(connected) 에 따라 플레이어의 색을 다르게 함
+
+플레이어가 보내는 data
+d: direction
+id, time, x, y, dx, dy 방향만넣고 속도는 서버에넣어야할듯
+
+
+get_server_time_protocol
+클라이언트-서버 시간 동기화 구조
+
+클라이언트 : 서버로 시간(클라이언트) 전송, 현재시간 저장 = send_time
+-이동시간-
+--서버--     : 클라이언트 정보 받으면 바로 시간(서버) 전송
+-이동시간-
+클라이언트 : 시간(서버) 받음,저장 = server_fake_time, 현재시간 저장 = receive_time
+
+receive_time - send_time = ping
+
+server_fake_time + (ping / 2) = server_time
+
+client_time = (send_time + receive_time) / 2
+client_time - server_time = time_gap으로 저장, 여러번 time_gap을 구하고 평균치를 낸 후
+
+client_time - time_gap_average = server_time
+
+
+
+
+
+
+2명의 플레이어가 접속했다가 나가는 과정 시뮬레이션
+
+서버 	   : 웹소켓 서버 염
+클라이언트 : 서버 웹소켓에 접속 , 시간 요청 주고받아서 서버시간으로 동기화
+서버 	   : join 함수로 웹소켓 보냄
+서버 	   : 메시지 타입 init 인지 확인하고 map 에 플레이어 추가 + rgb 랜덤으로해서 색 지정
+서버 	   : connected 에 웹소켓 추가
+서버 	   : isConnected 변수 true 로 설정, Update 함수 실행
+서버 	   : Update 함수는 0.1초마다 입력으로 map의 변수들 업데이트 + broadcast
+서버 	   : play 함수 실행
+서버 	   : plat() : 클라이언트 입력을 받아서 operation 배열에 추가하기 반복
+클라이언트 : 현재시간에 + init 서버에 전송
+클라이언트 : 서버에서 받은 정보 토대로 플레이어들 생성 (색, 위치)
+클라이언트 : 키입력 받으면 그대로 서버에 전송 + 내 캐릭터 움직임
+클라이언트 : 서버에서 시간 + 다른캐릭터 데이터 오면 현재시간 - 0.1초 전으로 해서 보여줌
+
+
+
+클라이언트 : 시작 -> 시간동기화 5회
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+클라이언트 : 
+서버 	   : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
